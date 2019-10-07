@@ -88,6 +88,12 @@ You can also compile a particular demo by navigating into its source code folder
 cd src/rotating-cube && make
 ```
 
+#### 2.5 Running and compiling a Torre
+
+```
+make glut-timer-func
+```
+
 ## License
 
 The code files in this repository have mixed licenses. Please refer to each file/project to check its license.
