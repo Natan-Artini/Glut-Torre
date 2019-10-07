@@ -49,6 +49,46 @@ void renderCoordinateAxis()
 	glEnd();
 }
 
+void torre(){
+	glPushMatrix();
+
+	// Cria a base da torre
+	glTranslated(0.0, -3.0, 0.0);
+	glScaled(2.0, 0.25, 2.0);
+	glutWireCube(1.5);
+	glTranslated(0.0, 7.0, 0.0);
+	glScaled(0.5, 4.0, 0.5);
+
+	// Lado direito da torre
+	glTranslated(1.0, 3.0, 0.0);
+	glutWireCube(0.4);
+	glTranslated(0.0, 0.0, -1.0);
+	glutWireCube(0.4);
+	glTranslated(0.0, 0.0, 2.0);
+	glutWireCube(0.4);
+
+	// Centro da Torre
+	glTranslated(-1.0, 0.0, 0.0);
+	glutWireCube(0.4);
+	glTranslated(0.0, 0.0, -2.0);
+	glutWireCube(0.4);
+
+	// Lado esquedo da torre
+	glTranslated(-1.0, 0.0, 0.0);
+	glutWireCube(0.4);
+	glTranslated(0.0, 0.0, 1.0);
+	glutWireCube(0.4);
+	glTranslated(0.0, 0.0, 1.0);
+	glutWireCube(0.4);
+
+	// Cria a base da torre
+	glTranslated(1.0, -2.5, -1.0);
+	glScaled(1.5, 3.0, 1.5);
+	glutWireCube(1.5);
+
+	glPopMatrix();
+}
+
 void display()
 {
 	// Clear the screen painting it with the white color
@@ -67,13 +107,21 @@ void display()
 	renderCoordinateAxis();
 
 	// Rotate the red square by "angle" degrees.
-	glRotatef(angle, 0.0f, 0.0f, 1.0f);
+	glRotatef(angle, 0.0f, 1.0f, 1.0f);
 	
 	// Render a red square
 	//        R  G  B
 	glColor3f(1, 0, 0);
-	//        x1    y1    x2     y2
-	glRectf(-1.0f, 1.0f, 1.0f, -1.0f);
+
+	torre();
+
+	glTranslated(-3.0, 0.0, 0.0);
+
+	torre();
+
+	glTranslated(6.0, 0.0, 0.0);
+
+	torre();
 
 	// Start the rendering on a new frame
 	glutSwapBuffers();

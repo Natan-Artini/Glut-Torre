@@ -32,6 +32,12 @@ void renderCoordinateAxis()
 	glEnd();
 }
 
+float rotate = 0.0f;
+float direct = 0.005f;
+float X = 0.0f;
+float scale = 0.005f;
+float Y = 1.0f;
+
 void display()
 {
 	// Clear the screen painting it all with the white color
@@ -41,21 +47,32 @@ void display()
 	// Inform OpenGL we want to make changes to the modelview matrix
 	glMatrixMode(GL_MODELVIEW);
 
+	glLoadIdentity();
+
 	// Render the X and Y axis to guide ourselves.
 	renderCoordinateAxis();
 
 	// Render a red square
 	glColor3f(1, 0, 0);
-	glRotatef(45.0f, 0.0f, 0.0f, 1.0f);
-	glTranslatef(0.2f, 0.2f, 0);
-	glRectf(-0.1f, 0.1f, 0.1f, -0.1f);
-
+	
 	glLoadIdentity();
+	
+	if(X > 0.9 || X < -0.9){
+		direct = direct * -1.0;
+	}
+	X = X + direct;
+	
+	glTranslatef(X, 0, 0);
 
-	// Render a blue square
-	glColor3f(0, 0, 1);
-	glTranslatef(0.2f, 0.2f, 0);
-	glRotatef(45.0f, 0, 0, 1.0f);
+	rotate += 1;
+	glRotatef(rotate, 0.0f, 0.0f, 1.0f);
+
+	if(Y > 1.4 || Y < 1.0){
+		scale = scale * -1.0;
+	}
+	Y = Y + scale;
+	glScaled(Y, Y, 1.0);
+
 	glRectf(-0.1f, 0.1f, 0.1f, -0.1f);
 
 	glutSwapBuffers();
@@ -76,6 +93,7 @@ int main(int argc, char** argv)
 	glutInitWindowSize(800, 800);
 	glutCreateWindow("Transformation - Simple");
 	glutDisplayFunc(display);
+	glutIdleFunc(display);
 	glutKeyboardFunc(keyboard);
 
 	glutMainLoop();
